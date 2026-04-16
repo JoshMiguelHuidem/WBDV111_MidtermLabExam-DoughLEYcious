@@ -1791,7 +1791,8 @@ section {
   color: #c8a97e;
 }
 
-/* ================= contact socials section ================= */
+/* =============================== 
+contact socials section ================= */
 .contact-socials {
   display: flex;
   flex-direction: column;
@@ -1822,9 +1823,164 @@ section {
   font-size: 0.8rem;
   transition: all 0.3s ease;
 }
+/* para sa logo sa navbar */
 .nav-logo-img {
-  height: 55px;        /* adjust size */
+  height: 55px;        /* para pag mag adjust ng size */
   width: auto;
   vertical-align: middle;
-  margin-right: 10px;   /* space between logo and text */
+  margin-right: 10px;   /* para sa space between logo and text */
+}
+/* =========================== 
+lahat ng nandito para sa responsiveness ================= */
+
+/* NAVBAR MOBILE FIX */
+@media (max-width: 768px) {
+
+  .navbar-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .nav-logo-img {
+    margin: 5px 0 0;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 10px;
+  }
+}
+
+/* hero text fix */
+@media (max-width: 768px) {
+  .header-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .header-overlay p {
+    font-size: 0.9rem;
+  }
+}
+
+/* para sa about section*/
+@media (max-width: 900px) {
+  .about-story {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .about-story-img img {
+    height: 250px;
+  }
+
+  .about-story-text {
+    text-align: center;
+  }
+}
+
+/* for cart fix */
+@media (max-width: 900px) {
+  .cart-wrapper {
+    flex-direction: column;
+  }
+
+  .cart-left {
+    width: 100%;
+  }
+}
+
+/* para sa pag ayos ng product grid container */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* inaayos niya yung cards container */
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 320px;
+  }
+}
+
+/* inaayos niya yung box grid */
+@media (max-width: 768px) {
+  .box-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box-card {
+    width: 90%;
+    max-width: 350px;
+  }
+}
+
+/* inaayos lang nito yung features grid */
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* inaayos niya yung footer */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-section {
+    align-items: center;
+  }
+}
+
+/* inaayos niya yung grid ng contact section */
+@media (max-width: 768px) {
+  .info-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* para mas ma unlock yung full width sa mobile */
+@media (max-width: 480px) {
+  .hero-btn,
+  .hero-btn-outline,
+  .box-btn,
+  .add-to-cart-btn {
+    width: 100%;
+  }
 }
