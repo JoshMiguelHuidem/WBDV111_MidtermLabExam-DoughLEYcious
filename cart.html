@@ -23,8 +23,9 @@
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar">
   <div class="navbar-inner">
-    <a href="index.html" class="nav-logo">Dough LEYcious
-       <img src="images/logo.png" alt="Dough LEYcious Logo" class="nav-logo-img">
+    <a href="index.html" class="nav-logo">
+  <img src="images/logo.png" alt="Dough LEYcious Logo" class="nav-logo-img">
+  <span>Dough LEYcious</span>
     </a>
     
     <ul class="nav-links">
@@ -241,78 +242,6 @@
     updateCartCount();
   }
 </script>
-
-<!-- ================= checkout modal ================= -->
-<div class="modal-overlay" id="checkout-modal">
-  <div class="checkout-modal">
-    <button class="modal-close" onclick="closeCheckoutModal()">&times;</button>
-
-    <div class="modal-header">
-      <div class="modal-icon">🍪</div>
-      <h2>Complete Your Order</h2>
-      <p>Fill in your delivery details below</p>
-    </div>
-
-    <!-- order summary -->
-    <div class="modal-summary" id="modal-summary">
-      <!-- filled by JS -->
-    </div>
-
-    <!-- checkout form -->
-    <form id="checkout-form" onsubmit="submitOrder(event)">
-
-      <!-- full name -->
-      <div class="form-group">
-        <label>Full Name <span class="required">*</span></label>
-        <input type="text" id="checkout-name" placeholder="e.g. Juan Dela Cruz" required>
-      </div>
-
-      <!-- phone number -->
-      <div class="form-group">
-        <label>Phone Number <span class="required">*</span></label>
-        <input type="tel" id="checkout-phone" placeholder="e.g. 09123456789" required>
-      </div>
-
-      <!-- delivery address -->
-      <div class="form-group">
-        <label>Delivery Address <span class="required">*</span></label>
-        <textarea id="checkout-address" placeholder="Complete address (street, barangay, city)" required></textarea>
-      </div>
-
-      <!-- date and time -->
-      <div class="form-row">
-        <div class="form-group">
-          <label>Delivery Date <span class="required">*</span></label>
-          <input type="date" id="checkout-date" required>
-        </div>
-        <div class="form-group">
-          <label>Delivery Time <span class="required">*</span></label>
-          <input type="time" id="checkout-time" required>
-        </div>
-      </div>
-
-      <!-- proof of payment -->
-      <div class="form-group">
-        <label>Proof of Payment <span class="required">*</span></label>
-        <div class="file-upload-wrapper">
-          <label class="file-upload-label" for="checkout-proof">
-            <span class="upload-icon">📎</span>
-            <span class="upload-text">Click to upload screenshot</span>
-            <span class="upload-hint">JPG, PNG or PDF (max 5MB)</span>
-          </label>
-          <input type="file" id="checkout-proof" accept="image/*,.pdf" required onchange="showFileName(this)">
-        </div>
-        <div class="file-name" id="file-name-display"></div>
-      </div>
-
-      <!-- submit button -->
-      <button type="submit" class="checkout-submit-btn">
-        🍪 Place Order
-      </button>
-
-    </form>
-  </div>
-</div>
 
 </body>
 </html>
