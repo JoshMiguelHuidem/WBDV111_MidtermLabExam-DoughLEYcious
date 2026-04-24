@@ -236,6 +236,8 @@ function removeItem(index) {
 
 // ================= for clear cart =================
 function clearCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
   if (cart.length === 0) {
     showToast("⚠️ Your cart is already empty!");
     return;
@@ -243,9 +245,11 @@ function clearCart() {
 
   if (confirm("Are you sure you want to clear your cart?")) {
     localStorage.removeItem("cart");
-    displayCart();
-    updateCartCount();
     showToast("🗑️ Cart cleared!");
+
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
 }
 
@@ -258,29 +262,139 @@ function checkout() {
     return;
   }
 
-  // for getting total
+  // fill order summary in modal
+  let subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  let deliveryFee = 50;
+  let total = subtotal + deliveryFee;
+
+  const summaryContainer = document.getElementById("modal-summary");
+  if (summaryContainer) {
+    let summaryHTML = `<h4>📋 Order Summary</h4>`;
+
+    cart.forEach(item => {
+      summaryHTML += `
+        <div class="modal-summary-item">
+          <span>${item.name} x${item.qty}</span>
+          <span>₱${(item.price * item.qty).toFixed(2)}</span>
+        </div>
+      `;
+    });
+
+    summaryHTML += `
+      <div class="modal-summary-item">
+        <span>Delivery Fee</span>
+        <span>₱${deliveryFee.toFixed(2)}</span>
+      </div>
+      <div class="modal-summary-total">
+        <span>Total</span>
+        <span>₱${total.toFixed(2)}</span>
+      </div>
+    `;
+
+    summaryContainer.innerHTML = summaryHTML;
+  }
+
+  // set minimum date to today
+  const dateInput = document.getElementById("checkout-date");
+  if (dateInput) {
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+  }
+
+  // show modal
+  const modal = document.getElementById("checkout-modal");
+  if (modal) {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// ================= close checkout modal =================
+function closeCheckoutModal() {
+  const modal = document.getElementById("checkout-modal");
+  if (modal) {
+    modal.classList.remove("active");
+    document.body.style.overflow = "auto";
+  }
+}
+
+// ================= close modal when clicking overlay =================
+document.addEventListener("click", function(e) {
+  const modal = document.getElementById("checkout-modal");
+  if (e.target === modal) {
+    closeCheckoutModal();
+  }
+});
+
+// ================= close modal with ESC key =================
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    closeCheckoutModal();
+  }
+});
+
+// ================= show file name =================
+function showFileName(input) {
+  const fileNameDisplay = document.getElementById("file-name-display");
+  if (input.files && input.files[0] && fileNameDisplay) {
+    fileNameDisplay.textContent = "📄 " + input.files[0].name;
+    fileNameDisplay.classList.add("show");
+  }
+}
+
+// ================= submit order =================
+function submitOrder(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("checkout-name").value.trim();
+  const phone = document.getElementById("checkout-phone").value.trim();
+  const address = document.getElementById("checkout-address").value.trim();
+  const date = document.getElementById("checkout-date").value;
+  const time = document.getElementById("checkout-time").value;
+  const proof = document.getElementById("checkout-proof").files[0];
+
+  // validate all fields
+  if (!name || !phone || !address || !date || !time || !proof) {
+    showToast("⚠️ Please fill in all fields!");
+    return;
+  }
+
+  // validate phone number
+  if (phone.length < 11) {
+    showToast("⚠️ Please enter a valid phone number!");
+    return;
+  }
+
+  // get cart for summary
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   let total = subtotal + 50;
 
-  // confirm order/check out
-  const confirmed = confirm(
-    `🍪 Order Summary:\n\n` +
-    cart.map(item => `${item.name} x${item.qty} - ₱${(item.price * item.qty).toFixed(2)}`).join("\n") +
-    `\n\nDelivery Fee: ₱50` +
-    `\nTotal: ₱${total.toFixed(2)}` +
-    `\n\nConfirm your order?`
-  );
+  // close modal
+  closeCheckoutModal();
 
-  if (confirmed) {
-    localStorage.removeItem("cart");
-    updateCartCount();
-    showToast("✅ Order placed successfully! 🍪");
+  // clear cart
+  localStorage.removeItem("cart");
+  updateCartCount();
+  displayCart();
 
-    setTimeout(() => {
-      alert("🍪 Thank you for ordering from Dough LEYcious!\nWe will contact you shortly.");
-      window.location.href = "index.html";
-    }, 1500);
-  }
+  // show success toast
+  showToast("✅ Order placed successfully! 🍪");
+
+  // show thank you message after delay
+  setTimeout(() => {
+    alert(
+      `🍪 Thank you for ordering from Dough LEYcious!\n\n` +
+      `📋 Order Details:\n` +
+      `👤 Name: ${name}\n` +
+      `📱 Phone: ${phone}\n` +
+      `📍 Address: ${address}\n` +
+      `📅 Delivery: ${date} at ${time}\n` +
+      `💰 Total: ₱${total.toFixed(2)}\n\n` +
+      `We will contact you shortly. 💛`
+    );
+    window.location.href = "index.html";
+  }, 1500);
 }
 
 // ================= total =================
