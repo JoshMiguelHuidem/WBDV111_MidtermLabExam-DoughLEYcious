@@ -845,6 +845,7 @@ section {
   transform: scale(0.97);
 }
 
+
 /* ================= features section ================= */
 .features-section {
   padding: 60px 20px;
@@ -1527,14 +1528,14 @@ section {
 .cart-item-info h3 {
   font-size: 1rem;
   color: #674846;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.cart-item-info p {
+.cart-item-info p { /*price ng nasa cart*/
   font-size: 0.85rem;
   color: #aaa;
 }
