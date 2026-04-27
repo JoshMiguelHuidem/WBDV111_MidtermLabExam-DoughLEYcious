@@ -1925,6 +1925,33 @@ contact socials section ================= */
   border-radius: 24px 24px 0 0;
 }
 
+.checkout-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px; /* makes it pill-shaped */
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6b4f4f, #c8a97e);
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+}
+
+.continue-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px; /* makes it pill-shaped */
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6b4f4f, #c8a97e);
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+}
+
+
 /* close button */
 .modal-close {
   position: absolute;
@@ -2361,5 +2388,17 @@ lahat ng nandito para sa responsiveness ================= */
   .box-btn,
   .add-to-cart-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-btn,
+  .continue-btn {
+    display: block;
+    width: 100%;
+  }
+
+  .continue-btn {
+    margin-top: 12px; /* gap only on mobile */
   }
 }
